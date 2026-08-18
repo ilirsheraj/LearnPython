@@ -35,10 +35,13 @@ print()
 
 print("Lets work with frozen sets")
 small_primes = frozenset([2, 3, 5, 7])
+print(small_primes)
 bigger_primes = frozenset([5, 7, 11])
+print(bigger_primes)
+print("Lets try to change immutable object")
 try:
     small_primes.add(11)
 except AttributeError:
-    print("AttributeError")
+    print(f"{type(small_primes)}")
 
 print(small_primes & bigger_primes)
