@@ -1,7 +1,6 @@
-from datetime import date, datetime, timedelta, timezone
-import time
-import calendar
+from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
+import arrow
 
 f_bday = datetime(1975, 12, 29, 12, 50,
                   tzinfo=ZoneInfo('Europe/Rome'))
@@ -14,3 +13,15 @@ diff = h_bday - f_bday
 print(diff)
 print(f"Difference in days: {diff.days}")
 print(f"Difference in seconds: {diff.total_seconds()}")
+print("-" * 50)
+
+print("Play with Arrow Third Party Library")
+print(arrow.now())
+print(arrow.utcnow())
+local = arrow.now("Europe/Tirane")
+print(local)
+print(local.datetime)
+print(local.to("utc"))
+print(local.to("Europe/Moscow"))
+print(local.isoformat())
+print(local.datetime)
