@@ -1,4 +1,5 @@
 def func():
+    # pass is a null operation, so nothing is returned
     pass
 
 def main():
