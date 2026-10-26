@@ -26,6 +26,7 @@ def cube(n):
 
 def main():
     print(cube(2))
+    print()
     print(cube(5))
 
 if __name__ == '__main__':
