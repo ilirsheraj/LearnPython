@@ -1,5 +1,6 @@
 # Parentheses in class are redundant
 class Person:
+    # Add attribute
     species = "Human"
 
 def main():
