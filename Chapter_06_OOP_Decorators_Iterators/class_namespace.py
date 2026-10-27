@@ -6,7 +6,7 @@ class Person:
 def main():
     print(Person.species)
     print()
-    # Add dynamically
+    # Add dynamically: Class Attributes
     Person.alive = True
     print(Person.alive)
     print()
@@ -21,6 +21,7 @@ def main():
     print(man.alive)
     print()
 
+    # Add instance attributes
     man.name = "Darth"
     man.surname = "Vader"
     print(man.name, man.surname)
