@@ -11,6 +11,7 @@ def main():
     print()
 
     # Now we give p its own attribute
+    print("Lets give p its own attribute")
     p.x = 12
     print(p.x)
     # Class attribute remains unchanged
@@ -18,6 +19,7 @@ def main():
     print()
 
     # Now lets delete x attribute of p
+    print("Delete p attribute")
     del p.x
     # class attribute kicks in
     print(p.x)
