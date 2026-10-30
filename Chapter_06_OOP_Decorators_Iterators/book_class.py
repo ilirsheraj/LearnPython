@@ -5,7 +5,6 @@ class Book:
         self.pages = pages
 
 class Ebook(Book):
-    # Duplication of input parameters: useless
     def __init__(self, title, publisher, pages, format_):
         super().__init__(title, publisher, pages)
         # It is also done in another way
