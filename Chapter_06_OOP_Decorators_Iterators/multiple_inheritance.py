@@ -53,6 +53,9 @@ def main():
     print(f"The area of the square is {square.area():.2f}")
     print(f"The shape of the square is {square.get_geometric_type()}")
     square.plot(0.93, (74, 75))
+    print()
+
+    print(square.__class__.__mro__)
 
 if __name__ == "__main__":
     main()
