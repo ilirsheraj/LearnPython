@@ -5,6 +5,7 @@ class Engine:
     def stop(self):
         pass
 
+# These two classes now inherit from Engine (Parenthesis)
 class ElectricEngine(Engine):
     # Is-A Engine
     pass
@@ -32,6 +33,7 @@ class Car:
     def stop(self):
         self.engine.stop()
 
+# These now inherit from Car, which inherits from Engine
 class RaceCar(Car):
     # Is-A Car
     engine_cls = V8Engine
