@@ -5,6 +5,7 @@ class Book:
         self.pages = pages
 
 class Ebook(Book):
+    # If we change the name of class Book to sth else, it will be reflected
     def __init__(self, title, publisher, pages, format_):
         super().__init__(title, publisher, pages)
         # It is also done in another way
@@ -19,9 +20,6 @@ def main():
     print(ebook.publisher)
     print(ebook.pages)
     print(ebook.format_)
-
-    ebook.available = True
-    print(ebook.available)
 
 if __name__ == "__main__":
     main()
