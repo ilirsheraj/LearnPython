@@ -34,7 +34,6 @@ class RegularHexagon(RegularPolygon):
     def area(self):
         return 1.5 * (3 ** 0.5 * self.side **2)
 
-
 class Square(RegularPolygon):
     # Is-A RegularPolygon
     geometric_type = "Square"
