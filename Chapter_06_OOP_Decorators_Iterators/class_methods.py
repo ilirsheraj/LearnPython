@@ -4,6 +4,7 @@ class Point:
         self.y = y
 
     @classmethod
+    # similar to self, we have cls
     def from_tuple(cls, coords):
         return cls(*coords)
 
