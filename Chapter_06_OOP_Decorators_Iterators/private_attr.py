@@ -1,0 +1,24 @@
+class A:
+    def __init__(self, factor):
+        self._factor = factor
+
+    def op1(self):
+        print("Op1 with factor {}...".format(self._factor))
+
+# Define class B which inherits from class A
+class B(A):
+    def op2(self, factor):
+        self._factor = factor
+        print("Op2 with factor {}...".format(self._factor))
+
+def main():
+    obj = B(100)
+    obj.op1()
+
+    obj.op2(50)
+    obj.op1()
+
+    print(obj.__dict__.keys())
+
+if __name__ == "__main__":
+    main()
