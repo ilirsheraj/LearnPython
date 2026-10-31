@@ -10,6 +10,7 @@ class StringUtil:
 
     @staticmethod
     # The underscore tells us not to call this outside the class
+    # Private attribute in C++ (In python everything is public)
     def _strip_string(s):
         return "".join(c for c in s if c.isalnum())
 
