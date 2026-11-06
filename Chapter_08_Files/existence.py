@@ -7,3 +7,9 @@ path = p.parent.absolute()
 
 # Print the absolute path where fear.txt is located
 print(path)
+
+# Check if fear.txt is a file
+print(p.is_file())
+# True
+print(path.is_file())
+print(path.is_dir())
