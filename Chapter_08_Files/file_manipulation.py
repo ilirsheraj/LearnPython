@@ -17,19 +17,23 @@ def reverse(s):
     """
     return s[::-1]
 
-# Work on file
-with open("fear.txt") as stream:
-    lines = [line.rstrip() for line in stream]
+def main():
+    # Work on file
+    with open("fear.txt") as stream:
+        lines = [line.rstrip() for line in stream]
 
-# Write the mirrored version back in the disk
-with open("raef.txt", "w") as stream:
-    stream.write("\n".join(reverse(line) for line in lines))
+    # Write the mirrored version back in the disk
+    with open("raef.txt", "w") as stream:
+        stream.write("\n".join(reverse(line) for line in lines))
 
-# Let's see the most common words
-## Clean non-standard letters and characters and make them lowercase for
-# comparison
-lines = [sanitize(line, chars) for line in lines]
-whole = " ".join(lines)
+    # Let's see the most common words
+    ## Clean non-standard letters and characters and make them lowercase for
+    # comparison
+    lines = [sanitize(line, chars) for line in lines]
+    whole = " ".join(lines)
 
-cnt = Counter(whole.lower().split())
-print(cnt.most_common(5))
+    cnt = Counter(whole.lower().split())
+    print(cnt.most_common(5))
+
+if __name__ == "__main__":
+    main()
