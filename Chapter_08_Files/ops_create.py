@@ -1,5 +1,4 @@
 import shutil
-from os import mkdir
 from pathlib import Path
 
 base_path = Path("ops_example")
