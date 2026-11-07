@@ -12,6 +12,8 @@ print(type(data))
 
 # First create a JSON formatted string
 json_data = json.dumps(data)
+# Convert JSON formatted string and loads into python
 data_out = json.loads(json_data)
 
+# ensure they match
 assert data == data_out
