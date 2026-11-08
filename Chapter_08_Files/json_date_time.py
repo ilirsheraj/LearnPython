@@ -19,6 +19,7 @@ class DateTimeEncoder(json.JSONEncoder):
                 "data": obj.timetuple()[:6] + (obj.microsecond, ),
                 "utcoffset": off,
             }
+        return super().default(obj)
 
 data = {
     "a_int": 42,
