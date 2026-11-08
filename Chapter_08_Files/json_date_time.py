@@ -29,3 +29,17 @@ data = {
 
 json_data = json.dumps(data, cls=DateTimeEncoder)
 print(json_data)
+
+def object_hook(obj):
+    try:
+        if obj["_meta"] == "_datetime":
+            if obj["utcoffset"] is None:
+                tz = None
+            else:
+                tz = timezone(timedelta(seconds=obj["utcoffset"]))
+            return datetime(*obj["data"], tzinfo=tz)
+    except KeyError:
+        return obj
+
+data_out = json.loads(json_data, object_hook=object_hook)
+print(data_out)
