@@ -18,3 +18,15 @@ data = {
 
 json_data = json.dumps(data, cls=ComplexEncoder)
 print(json_data)
+print()
+
+def object_hook(obj):
+    print(f"object_hook: {obj=}")
+    try:
+        if obj["_meta"] == "_complex":
+            return complex(*obj["num"])
+    except KeyError:
+        return obj
+
+data_out = json.loads(json_data, object_hook=object_hook)
+print(data_out)
