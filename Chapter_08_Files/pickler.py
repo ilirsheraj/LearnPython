@@ -9,7 +9,7 @@ class Person:
 
     def greet(self):
         print(f"Hello, I am {self.first_name} {self.last_name}"
-              f"My ID is {self.id}")
+              f" and my ID is {self.id}")
 
 people = [
     Person("John", "Doe", 123),
