@@ -1,4 +1,6 @@
 import requests
+# for better printing
+import json
 
 urls = {
     "get": "https://httpbin.org/get?t=learn+python+programming",
@@ -12,7 +14,8 @@ urls = {
 def get_contents(title, url):
     resp = requests.get(url)
     print(f"Response for {title}")
-    print(resp.json())
+    # print(resp.json())
+    print(json.dumps(resp.json(), indent=4))
 
 def main():
     for title, url in urls.items():
