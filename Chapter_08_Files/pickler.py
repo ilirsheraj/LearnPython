@@ -16,3 +16,6 @@ people = [
     Person("Anakyn", "Skywalker", 456),
 ]
 
+# Save data in binary format
+with open("data.pickle", "wb") as stream:
+    pickle.dump(people, stream)
