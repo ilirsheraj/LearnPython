@@ -19,3 +19,10 @@ people = [
 # Save data in binary format
 with open("data.pickle", "wb") as stream:
     pickle.dump(people, stream)
+
+# Load data back from file
+with open("data.pickle", "rb") as stream:
+    peeps = pickle.load(stream)
+
+for person in peeps:
+    person.greet()
