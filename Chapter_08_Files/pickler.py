@@ -24,5 +24,6 @@ with open("data.pickle", "wb") as stream:
 with open("data.pickle", "rb") as stream:
     peeps = pickle.load(stream)
 
+# call all
 for person in peeps:
     person.greet()
