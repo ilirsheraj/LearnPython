@@ -47,3 +47,9 @@ def display_info():
         session.query(Person).count(),
         session.query(Address).count(),
     ))
+
+display_info()
+anakin = session.query(Person).get(anakin_id)
+session.delete(anakin)
+session.commit()
+display_info()
