@@ -34,3 +34,16 @@ print(anakin, anakin.addresses)
 
 anakin_id = anakin.id
 del anakin
+
+def display_info():
+    # Get all addresses first
+    addresses = session.query(Address).all()
+
+    # Display results
+    for address in addresses:
+        print(f"{address.person.name}: <{address.email}>")
+
+    print("people: {}, addresses: {}".format(
+        session.query(Person).count(),
+        session.query(Address).count(),
+    ))
