@@ -7,7 +7,7 @@ session = Session()
 
 # Create two people
 anakin = Person(name="Anakin Skywalker", age=32)
-obi1 = Person(name="Obi-wan", age=40)
+obi1 = Person(name="Obi-Wan Kenobi", age=40)
 
 # Add e-mail addresses: two ways
 obi1.addresses = [
@@ -29,10 +29,11 @@ obi1 = session.query(Person).filter(
     # start with Obi: like()
     Person.name.like("Obi1%")
 ).first()
-
 print(anakin, anakin.addresses)
 
+# Capture Anankin id
 anakin_id = anakin.id
+# remove it
 del anakin
 
 def display_info():
@@ -49,7 +50,11 @@ def display_info():
     ))
 
 display_info()
+# Get anankin by ID
 anakin = session.query(Person).get(anakin_id)
+# Delete it
 session.delete(anakin)
 session.commit()
+
+# Display one more to see the changes
 display_info()
