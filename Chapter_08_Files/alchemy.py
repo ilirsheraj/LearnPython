@@ -31,3 +31,6 @@ obi1 = session.query(Person).filter(
 ).first()
 
 print(anakin, anakin.addresses)
+
+anakin_id = anakin.id
+del anakin
