@@ -24,3 +24,10 @@ session.add(anakin)
 session.add(obi1)
 # To save the data into the database
 session.commit()
+
+obi1 = session.query(Person).filter(
+    # start with Obi: like()
+    Person.name.like("Obi1%")
+).first()
+
+print(anakin, anakin.addresses)
