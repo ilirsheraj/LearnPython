@@ -30,6 +30,7 @@ obi1 = session.query(Person).filter(
     Person.name.like("Obi1%")
 ).first()
 print(anakin, anakin.addresses)
+print()
 
 # Capture Anankin id
 anakin_id = anakin.id
@@ -50,6 +51,7 @@ def display_info():
     ))
 
 display_info()
+print()
 # Get anankin by ID
 anakin = session.query(Person).get(anakin_id)
 # Delete it
