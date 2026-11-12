@@ -30,4 +30,8 @@ class Address(Base):
         back_populates="addresses",
     )
 
+    def __str__(self):
+        return self.email
+    __repr__ = __str__
+
 Base.metadata.create_all(engine)
