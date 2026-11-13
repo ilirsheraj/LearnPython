@@ -18,6 +18,7 @@ def generate_secure_pwd(length=16, upper=3, digits=3):
 def main():
     print(generate_secure_pwd())
     print(generate_secure_pwd(length=32, upper=2, digits=3))
+    print(generate_secure_pwd(length=3, upper=2, digits=3))
 
 if __name__ == "__main__":
     main()
