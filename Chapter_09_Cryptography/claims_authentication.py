@@ -2,9 +2,9 @@ import jwt
 import warnings
 warnings.filterwarnings("ignore")
 
-data = {"payload": "data", "iss": "hein", "aud": "learn-python"}
-secret = "secret-key"
-token = jwt.encode(data, secret)
+# data = {"payload": "data", "iss": "hein", "aud": "learn-python"}
+# secret = "secret-key"
+# token = jwt.encode(data, secret)
 
 def decode(token, secret, issuer=None, audience=None):
 
@@ -17,4 +17,24 @@ def decode(token, secret, issuer=None, audience=None):
         print(err)
         print(type(err))
 
-decode(token, secret)
+def main():
+    data = {"payload": "data", "iss": "hein", "aud": "learn-python"}
+    secret = "secret-key"
+    token = jwt.encode(data, secret)
+    decode(token, secret)
+    print()
+    # No issuer
+    decode(token, secret, audience="learn-python")
+    print()
+    # No audience
+    decode(token, secret, issuer="hein")
+    print()
+    # Both break
+    decode(token, secret, issuer="wrong", audience="learn-python")
+    print()
+    decode(token, secret, issuer="hein", audience="wrong")
+    print()
+    decode(token, secret, issuer="hein", audience="learn-python")
+
+if __name__ == "__main__":
+    main()
