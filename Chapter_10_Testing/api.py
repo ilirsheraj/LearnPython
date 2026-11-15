@@ -55,7 +55,8 @@ def write_csv(filename, users):
 
     with open(filename, "w", newline="") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        # Write the header first
         writer.writeheader()
-
+        # Now loop over the users one at a time
         for user in users:
             writer.writerow(user)
