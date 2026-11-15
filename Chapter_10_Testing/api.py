@@ -1,12 +1,14 @@
 import os
 import csv
 from copy import deepcopy
-# THird prty libraries
+# Third party libraries
 from marshmallow import Schema, fields, pre_load
 from marshmallow.validate import Length, Range
 
 class UserSchema(Schema):
-    """Requests a *valid* user. """
+    """
+    Requests a *valid* user.
+    """
     email = fields.Email(required=True)
     name = fields.Str(required=True, validate=Length(min=1))
     age = fields.Int(required=True, validate=Range(min=18, max=65))
