@@ -24,3 +24,16 @@ class UserSchema(Schema):
         return data_copy
 
 schema = UserSchema()
+
+def export(filename, users, overwrite=True):
+    """
+    Exports a csv file.
+
+    Create a csv file and fill it with valid users. If "overwrite" is False,
+    and file already exists, raise IOError
+    """
+    if not overwrite and os.path.exists(filename):
+        raise IOError(f"'{filename}' already exists")
+
+    valid_users = get_valid_users(users)
+    write_csv(filename, valid_users)
