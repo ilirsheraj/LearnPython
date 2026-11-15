@@ -45,3 +45,17 @@ def get_valid_users(users):
 def is_valid(user):
     """ Returns whether or not the user is valid. """
     return not schema.validate(user)
+
+def write_csv(filename, users):
+    """ Write a CSV given a filename and a list of users.
+
+    The users are assumed to be valid for the given CSV structure.
+    """
+    fieldnames = ["email", "name", "age", "role"]
+
+    with open(filename, "w", newline="") as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
+        for user in users:
+            writer.writerow(user)
