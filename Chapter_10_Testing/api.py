@@ -37,3 +37,11 @@ def export(filename, users, overwrite=True):
 
     valid_users = get_valid_users(users)
     write_csv(filename, valid_users)
+
+def get_valid_users(users):
+    """ Yield one valid user at a time from users. """
+    yield from filter(is_valid, users)
+
+def is_valid(user):
+    """ Returns whether or not the user is valid. """
+    return not schema.validate(user)
