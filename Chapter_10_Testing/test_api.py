@@ -52,3 +52,9 @@ class TestIsValid:
     def test_invalid_age_wrong_type(self, age, min_user):
         min_user["age"] = age
         assert not is_valid(min_user)
+
+    # Correct age range
+    @pytest.mark.parametrize("age", range(18, 66))
+    def test_valid_age(self, age, min_user):
+        min_user["age"] = age
+        assert is_valid(min_user)
