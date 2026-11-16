@@ -10,6 +10,7 @@ def min_user():
             "name": "Primus Minimus",
             "age": 18
             }
+
 @pytest.fixture
 def full_user():
     """ Represents a valid user with full data. """
@@ -58,3 +59,49 @@ class TestIsValid:
     def test_valid_age(self, age, min_user):
         min_user["age"] = age
         assert is_valid(min_user)
+
+    @pytest.mark.parametrize("field", ["email", "name", "age"])
+    def test_mandatory_fields(self, field, min_user):
+        del min_user["field"]
+        assert not is_valid(min_user)
+
+    @pytest.mark.parametrize("field", ["email", "name", "age"])
+    def test_mandatory_fields_empty(self, field, min_user):
+        min_user["field"] = ""
+        assert not is_valid(min_user)
+
+    def test_name_whitespace_only(self, min_user):
+        min_user["name"] = " \n\t"
+        assert not is_valid(min_user)
+
+    @pytest.mark.parametrize(("email", "outcome"),
+                             [
+                                 ("missing_at.com", False),
+                                 ("@missing_start.com", False),
+                                 ("missing_end@", False),
+                                 ("missing_dot@example", False),
+                                 ("good.one@example.com", True),
+                                 ("δοκιμή@παράδειγμα.δοκιμή", True),
+                                 ("аджай@экзампл.рус", True),
+                             ])
+
+    def test_email(self, email, outcome, min_user):
+        min_user["email"] = email
+        assert is_valid(min_user) == outcome
+
+    @pytest.mark.parametrize(("field", "value"),
+                             [
+                                 ("email", None),
+                                 ("email", 3.1415),
+                                 ("email", {}),
+                                 ("name", None),
+                                 ("name", 3.1415),
+                                 ("name", {}),
+                                 ("role", None),
+                                 ("role", 3.1415),
+                                 ("role", {}),
+                             ]
+                             )
+    def test_invalid_types(self, field, value, min_user):
+        min_user[field] = value
+        assert not is_valid(min_user)
