@@ -134,3 +134,13 @@ class TestExport:
             "minimal@example.com,Primus Minimus,18,\n"
             "full@example.com,Maximus Plenus,65,emperor\n"
         ) == text
+
+    def text_export_quoting(self, min_user, csv_file):
+        min_user["name"] = "A name, with a comma"
+        export(csv_file, [min_user])
+        text = csv_file.read_text()
+
+        assert (
+            "email,name,age,role\n"
+            "minimal@example.com,'A name, with a comma',18\n"
+        ) == text
