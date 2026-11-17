@@ -144,3 +144,11 @@ class TestExport:
             "email,name,age,role\n"
             "minimal@example.com,'A name, with a comma',18\n"
         ) == text
+
+    def test_does_not_overwrite(self, users, existing_file):
+        with pytest.raises(IOError) as err:
+            export(existing_file, users, overwrite=False)
+        err.match(r"'{}' already exists\.".format(re.escape(str(existing_file))))
+
+        # Let's also verify that the file is still intact
+        assert existing_file.read() == "Please leave me alone..."
