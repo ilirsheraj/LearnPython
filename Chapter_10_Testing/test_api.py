@@ -62,12 +62,12 @@ class TestIsValid:
 
     @pytest.mark.parametrize("field", ["email", "name", "age"])
     def test_mandatory_fields(self, field, min_user):
-        del min_user["field"]
+        del min_user[field]
         assert not is_valid(min_user)
 
     @pytest.mark.parametrize("field", ["email", "name", "age"])
     def test_mandatory_fields_empty(self, field, min_user):
-        min_user["field"] = ""
+        min_user[field] = ""
         assert not is_valid(min_user)
 
     def test_name_whitespace_only(self, min_user):
@@ -110,18 +110,18 @@ class TestExport:
     """ Tests the behavior of export function. """
 
     @pytest.fixture
-    def csv_file(self, temp_path):
+    def csv_file(self, tmp_path):
         """
         Yield a file name in a temporary folder.
         Due to how pytest 'temp_path' fixture works, the file does not exist
         yet.
         """
-        yield temp_path / 'out.csv'
+        yield tmp_path / 'out.csv'
 
     @pytest.fixture
-    def existing_file(self, temp_path):
+    def existing_file(self, tmp_path):
         """ Create a temporary file and put some contents in it. """
-        existing = temp_path / 'existing.csv'
+        existing = tmp_path / 'existing.csv'
         existing.write_text("Please leave me alone...")
         yield existing
 
@@ -132,7 +132,7 @@ class TestExport:
         assert (
             "email,name,age,role\n"
             "minimal@example.com,Primus Minimus,18,\n"
-            "full@example.com,Maximus Plenus,65,emperor\n"
+            "full@example.com,Maximus Plenus,65,Emperor\n"
         ) == text
 
     def text_export_quoting(self, min_user, csv_file):
@@ -142,13 +142,71 @@ class TestExport:
 
         assert (
             "email,name,age,role\n"
-            "minimal@example.com,'A name, with a comma',18\n"
+            'minimal@example.com,"A name, with a comma",18,\n'
         ) == text
 
     def test_does_not_overwrite(self, users, existing_file):
         with pytest.raises(IOError) as err:
             export(existing_file, users, overwrite=False)
-        err.match(r"'{}' already exists\.".format(re.escape(str(existing_file))))
+
+        err.match(r"'{}' already exists".format(re.escape(str(existing_file))))
 
         # Let's also verify that the file is still intact
-        assert existing_file.read() == "Please leave me alone..."
+        assert existing_file.read_text() == "Please leave me alone..."
+
+class TextExportMock:
+    """Example on how to test with mocks. """
+
+    @pytest.fixture
+    def write_csv_mock(self):
+        with patch('api.write_csv') as m:
+            yield m
+
+    @pytest.fixture
+    def get_valid_users_mock(self):
+        with patch('api.get_valid_users') as m:
+            yield m
+
+    def test_export(self, write_csv_mock, get_valid_users_mock, users):
+        export('out.csv', users)
+
+        # verify mocked funcs have been called properly
+        assert [call(users)] == get_valid_users_mock.call_args_list
+
+        valid_users = get_valid_users_mock.return_value
+        assert [call('out.csv', valid_users)] == write_csv_mock.call_args_list
+
+
+class TestWriteCSV:
+    """Example on how to test with mocks. """
+
+    @pytest.fixture
+    def open_mock(self):
+        """Mocks the `open` function. """
+        with patch('builtins.open', new_callable=mock_open()) as m:
+            yield m
+
+    @pytest.fixture
+    def csv_mock(self):
+        """Mocks the `csv` module as imported in `api.py`. """
+        with patch('api.csv') as m:
+            yield m
+
+    def test_write_csv(self, open_mock, csv_mock, users):
+        fieldnames = ['email', 'name', 'age', 'role']
+
+        write_csv('out.csv', users)
+
+        # verify both mocks are at work properly
+        writer = csv_mock.DictWriter.return_value
+        managed = open_mock().__enter__()
+
+        assert [
+            call(managed, fieldnames=fieldnames)
+        ] == csv_mock.DictWriter.call_args_list
+
+        assert [call()] == writer.writeheader.call_args_list
+
+        assert [
+            call(users[0]), call(users[1]), call(users[2])
+        ] == writer.writerow.call_args_list
