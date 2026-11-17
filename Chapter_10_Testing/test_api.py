@@ -205,4 +205,6 @@ class TestWriteCSV:
 
         assert ([call(users[0]), call(users[1]), call(users[2])] ==
                 writer.writerow.call_args_list)
+# I had to make some changes to the original code of the authors
+# It's probably the new version of pytest or maybe some other syntactic changes
 # EOF
