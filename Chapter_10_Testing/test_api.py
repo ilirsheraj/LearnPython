@@ -124,3 +124,13 @@ class TestExport:
         existing = temp_path / 'existing.csv'
         existing.write_text("Please leave me alone...")
         yield existing
+
+    def test_export(self, users, csv_file):
+        export(csv_file, users)
+        text = csv_file.read_text()
+
+        assert (
+            "email,name,age,role\n"
+            "minimal@example.com,Primus Minimus,18,\n"
+            "full@example.com,Maximus Plenus,65,emperor\n"
+        ) == text
