@@ -176,7 +176,6 @@ class TextExportMock:
         valid_users = get_valid_users_mock.return_value
         assert [call('out.csv', valid_users)] == write_csv_mock.call_args_list
 
-
 class TestWriteCSV:
     """Example on how to test with mocks. """
 
@@ -194,19 +193,16 @@ class TestWriteCSV:
 
     def test_write_csv(self, open_mock, csv_mock, users):
         fieldnames = ['email', 'name', 'age', 'role']
-
         write_csv('out.csv', users)
-
         # verify both mocks are at work properly
         writer = csv_mock.DictWriter.return_value
         managed = open_mock().__enter__()
 
-        assert [
-            call(managed, fieldnames=fieldnames)
-        ] == csv_mock.DictWriter.call_args_list
+        assert ([call(managed, fieldnames=fieldnames)] ==
+                csv_mock.DictWriter.call_args_list)
 
         assert [call()] == writer.writeheader.call_args_list
 
-        assert [
-            call(users[0]), call(users[1]), call(users[2])
-        ] == writer.writerow.call_args_list
+        assert ([call(users[0]), call(users[1]), call(users[2])] ==
+                writer.writerow.call_args_list)
+# EOF
