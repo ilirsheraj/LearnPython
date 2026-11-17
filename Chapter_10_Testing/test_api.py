@@ -105,3 +105,22 @@ class TestIsValid:
     def test_invalid_types(self, field, value, min_user):
         min_user[field] = value
         assert not is_valid(min_user)
+
+class TestExport:
+    """ Tests the behavior of export function. """
+
+    @pytest.fixture
+    def csv_file(self, temp_path):
+        """
+        Yield a file name in a temporary folder.
+        Due to how pytest 'temp_path' fixture works, the file does not exist
+        yet.
+        """
+        yield temp_path / 'out.csv'
+
+    @pytest.fixture
+    def existing_file(self, temp_path):
+        """ Create a temporary file and put some contents in it. """
+        existing = temp_path / 'existing.csv'
+        existing.write_text("Please leave me alone...")
+        yield existing
