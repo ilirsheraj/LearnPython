@@ -5,10 +5,6 @@ keys = ("first", "second", "third", "fourth")
 def do_something_with_value(value):
     print(value)
 
-def main():
-    breakpoint()
-    for key in keys:
-        do_something_with_value(d[key])
-
-if __name__ == "__main__":
-    main()
+breakpoint()
+for key in keys:
+    do_something_with_value(d[key])
