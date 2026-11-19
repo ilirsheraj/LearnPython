@@ -9,7 +9,7 @@ def calc_triples(mx):
     return triples
 
 def calc_hypotenuse(a,b):
-    return (a**2 + b**2)**0.5
+    return (a*a + b*b)**0.5
 
 def is_int(n):
     return n.is_integer()
